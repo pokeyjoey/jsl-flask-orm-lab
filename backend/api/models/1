@@ -1,0 +1,13 @@
+class Movie:
+    __table__ = 'movies'
+    attributes = ['id', 'title', 'studio', 'runtime', 'description', 'release_date', 'year']
+
+    def __init__(self, **kwargs):
+        # test that all keyword arguments are table attributes
+        for key in kwargs.keys():
+            if key not in self.attributes:
+                raise ValueError(f'{key} is not in {self.attributes}')
+
+        # Set the attributes for the class
+        for k, v in kwargs.items():
+            setattr(self, k, v)
