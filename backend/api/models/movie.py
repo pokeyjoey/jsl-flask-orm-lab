@@ -29,4 +29,8 @@ class Movie:
         return actors
 
     def to_json(self, conn):
-        pass
+        movie_attributes = self.__dict__
+        actors = self.actors(conn)
+        movie_attributes['actors'] = [actor.__dict__ for actor in actors]
+
+        return movie_attributes

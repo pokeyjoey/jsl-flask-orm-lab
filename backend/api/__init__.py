@@ -23,27 +23,27 @@ def create_app(database, user, password):
         db = get_db()
         actors = find_all(Actor, db)
 
-        return [actor.__dict__ for actor in actors]
+        return [actor.to_json(db) for actor in actors]
 
     @app.route('/actors/<id>')
     def actor(id):
         db = get_db()
         actor = find(Actor, id,  db)
 
-        return jsonify(actor.__dict__)
+        return jsonify(actor.to_json(db))
 
     @app.route('/movies')
     def movies():
         db = get_db()
         movies = find_all(Movie, db)
 
-        return [movie.__dict__ for movie in movies]
+        return [movie.to_json(db) for movie in movies]
 
     @app.route('/movies/<id>')
     def movie(id):
         db = get_db()
         movie = find(Movie, id,  db)
 
-        return jsonify(movie.__dict__)
+        return jsonify(movie.to_json(db))
 
     return app

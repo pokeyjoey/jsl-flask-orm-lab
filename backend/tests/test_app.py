@@ -97,29 +97,29 @@ def test_actors_show_displays_the_name_and_id_of_the_actor(app, client):
     assert actor_json['id'] == id
     assert actor_json['name'] == 'Morgan Freeman'
 
-#def test_actors_show_displays_related_movies(app, client):
-#    test_cursor.execute('SELECT id FROM actors where name = %s;', ('Tim Robbins',))
-#    id = test_cursor.fetchone()[0]
-    
-#    response = client.get(f'/actors/{id}')
-#    actor_json = json.loads(response.data)
-#    assert actor_json['id'] == id
-#    assert [movie['title'] for movie in actor_json['movies']] == ['Shawshank', 'Bull Durham']
+def test_actors_show_displays_related_movies(app, client):
+    test_cursor.execute('SELECT id FROM actors where name = %s;', ('Tim Robbins',))
+    id = test_cursor.fetchone()[0]
 
-#def test_movies_show_displays_related_actors(app, client):
-#    test_cursor.execute('SELECT id FROM movies where title = %s;', ('Shawshank',))
-#    id = test_cursor.fetchone()[0]
-    
-#    response = client.get(f'/movies/{id}')
-#    movie_json = json.loads(response.data)
-#    assert [actor['name'] for actor in movie_json['actors']] == ['Tim Robbins', 'Morgan Freeman']
+    response = client.get(f'/actors/{id}')
+    actor_json = json.loads(response.data)
+    assert actor_json['id'] == id
+    assert [movie['title'] for movie in actor_json['movies']] == ['Shawshank', 'Bull Durham']
 
-#def test_movies_index_displays_related_actors(app, client):
-#    response = client.get(f'/movies')
-#    movies_json = json.loads(response.data)
-#    assert set([actor['name'] for actor in movies_json[0]['actors']]) == set(['Morgan Freeman', 'Tim Robbins'])
+def test_movies_show_displays_related_actors(app, client):
+    test_cursor.execute('SELECT id FROM movies where title = %s;', ('Shawshank',))
+    id = test_cursor.fetchone()[0]
 
-#def test_actors_index_displays_related_movies(app, client):
-#    response = client.get(f'/actors')
-#    actors_json = json.loads(response.data)
-#    assert set([movie['title'] for movie in actors_json[0]['movies']]) == set(['Shawshank', 'Bull Durham'])
+    response = client.get(f'/movies/{id}')
+    movie_json = json.loads(response.data)
+    assert [actor['name'] for actor in movie_json['actors']] == ['Tim Robbins', 'Morgan Freeman']
+
+def test_movies_index_displays_related_actors(app, client):
+    response = client.get(f'/movies')
+    movies_json = json.loads(response.data)
+    assert set([actor['name'] for actor in movies_json[0]['actors']]) == set(['Morgan Freeman', 'Tim Robbins'])
+
+def test_actors_index_displays_related_movies(app, client):
+    response = client.get(f'/actors')
+    actors_json = json.loads(response.data)
+    assert set([movie['title'] for movie in actors_json[0]['movies']]) == set(['Shawshank', 'Bull Durham'])

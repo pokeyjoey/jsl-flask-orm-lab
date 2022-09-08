@@ -42,8 +42,8 @@ def test_movies_method_finds_associated_movies(actor):
     movie_titles = [movie.title for movie in movies]
     assert set(movie_titles) == set(['shawshank', 'bull durham'])
 
-#def test_to_json_returns_movies_actors_participated_in(actor):
-#    actor_json = actor.to_json(test_conn)
-#    assert actor_json['name'] == 'Tim Robbins'
-#    assert [movie['title'] for movie in actor_json['movies']] == ['shawshank', 'bull durham']
+def test_to_json_returns_movies_actors_participated_in(actor):
+    actor_json = actor.to_json(test_conn)
+    assert actor_json['name'] == 'Tim Robbins'
+    assert [movie['title'] for movie in actor_json['movies']] == ['shawshank', 'bull durham']
 
